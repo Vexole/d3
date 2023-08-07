@@ -1,0 +1,242 @@
+[
+  {
+    "month": "January",
+    "year": 2022,
+    "totalPatients": 15000,
+    "malePatients": 7000,
+    "femalePatients": 8000,
+    "childPatients": 5000,
+    "deaths": 300,
+    "recoveredPatients": 14000
+  },
+  {
+    "month": "February",
+    "year": 2022,
+    "totalPatients": 18000,
+    "malePatients": 8000,
+    "femalePatients": 10000,
+    "childPatients": 6000,
+    "deaths": 400,
+    "recoveredPatients": 16000
+  },
+  {
+    "month": "March",
+    "year": 2022,
+    "totalPatients": 22000,
+    "malePatients": 10000,
+    "femalePatients": 12000,
+    "childPatients": 7000,
+    "deaths": 600,
+    "recoveredPatients": 20000
+  },
+  {
+    "month": "April",
+    "year": 2022,
+    "totalPatients": 25000,
+    "malePatients": 11000,
+    "femalePatients": 14000,
+    "childPatients": 8000,
+    "deaths": 800,
+    "recoveredPatients": 22000
+  },
+  {
+    "month": "May",
+    "year": 2022,
+    "totalPatients": 28000,
+    "malePatients": 12000,
+    "femalePatients": 16000,
+    "childPatients": 9000,
+    "deaths": 1000,
+    "recoveredPatients": 25000
+  },
+  {
+    "month": "June",
+    "year": 2022,
+    "totalPatients": 31000,
+    "malePatients": 13000,
+    "femalePatients": 18000,
+    "childPatients": 10000,
+    "deaths": 1200,
+    "recoveredPatients": 28000
+  },
+  {
+    "month": "July",
+    "year": 2022,
+    "totalPatients": 34000,
+    "malePatients": 14000,
+    "femalePatients": 20000,
+    "childPatients": 11000,
+    "deaths": 1400,
+    "recoveredPatients": 31000
+  },
+  {
+    "month": "August",
+    "year": 2022,
+    "totalPatients": 37000,
+    "malePatients": 15000,
+    "femalePatients": 22000,
+    "childPatients": 12000,
+    "deaths": 1600,
+    "recoveredPatients": 34000
+  },
+  {
+    "month": "September",
+    "year": 2022,
+    "totalPatients": 40000,
+    "malePatients": 16000,
+    "femalePatients": 24000,
+    "childPatients": 13000,
+    "deaths": 1800,
+    "recoveredPatients": 37000
+  },
+  {
+    "month": "October",
+    "year": 2022,
+    "totalPatients": 43000,
+    "malePatients": 17000,
+    "femalePatients": 26000,
+    "childPatients": 14000,
+    "deaths": 2000,
+    "recoveredPatients": 40000
+  },
+  {
+    "month": "November",
+    "year": 2022,
+    "totalPatients": 46000,
+    "malePatients": 18000,
+    "femalePatients": 28000,
+    "childPatients": 15000,
+    "deaths": 2200,
+    "recoveredPatients": 43000
+  },
+  {
+    "month": "December",
+    "year": 2022,
+    "totalPatients": 49000,
+    "malePatients": 19000,
+    "femalePatients": 30000,
+    "childPatients": 16000,
+    "deaths": 2400,
+    "recoveredPatients": 46000
+  },
+  {
+    "month": "January",
+    "year": 2023,
+    "totalPatients": 51000,
+    "malePatients": 20000,
+    "femalePatients": 31000,
+    "childPatients": 17000,
+    "deaths": 2600,
+    "recoveredPatients": 49000
+  },
+  {
+    "month": "February",
+    "year": 2023,
+    "totalPatients": 53000,
+    "malePatients": 21000,
+    "femalePatients": 32000,
+    "childPatients": 18000,
+    "deaths": 2800,
+    "recoveredPatients": 51000
+  },
+  {
+    "month": "March",
+    "year": 2023,
+    "totalPatients": 55000,
+    "malePatients": 22000,
+    "femalePatients": 33000,
+    "childPatients": 19000,
+    "deaths": 3000,
+    "recoveredPatients": 53000
+  },
+  {
+    "month": "April",
+    "year": 2023,
+    "totalPatients": 57000,
+    "malePatients": 23000,
+    "femalePatients": 34000,
+    "childPatients": 20000,
+    "deaths": 3200,
+    "recoveredPatients": 55000
+  },
+  {
+    "month": "May",
+    "year": 2023,
+    "totalPatients": 59000,
+    "malePatients": 24000,
+    "femalePatients": 35000,
+    "childPatients": 21000,
+    "deaths": 3400,
+    "recoveredPatients": 57000
+  },
+  {
+    "month": "June",
+    "year": 2023,
+    "totalPatients": 61000,
+    "malePatients": 25000,
+    "femalePatients": 36000,
+    "childPatients": 22000,
+    "deaths": 3600,
+    "recoveredPatients": 59000
+  },
+  {
+    "month": "July",
+    "year": 2023,
+    "totalPatients": 63000,
+    "malePatients": 26000,
+    "femalePatients": 37000,
+    "childPatients": 23000,
+    "deaths": 3800,
+    "recoveredPatients": 61000
+  },
+  {
+    "month": "August",
+    "year": 2023,
+    "totalPatients": 65000,
+    "malePatients": 27000,
+    "femalePatients": 38000,
+    "childPatients": 24000,
+    "deaths": 4000,
+    "recoveredPatients": 63000
+  },
+  {
+    "month": "September",
+    "year": 2023,
+    "totalPatients": 67000,
+    "malePatients": 28000,
+    "femalePatients": 39000,
+    "childPatients": 25000,
+    "deaths": 4200,
+    "recoveredPatients": 65000
+  },
+  {
+    "month": "October",
+    "year": 2023,
+    "totalPatients": 69000,
+    "malePatients": 29000,
+    "femalePatients": 40000,
+    "childPatients": 26000,
+    "deaths": 4400,
+    "recoveredPatients": 67000
+  },
+  {
+    "month": "November",
+    "year": 2023,
+    "totalPatients": 71000,
+    "malePatients": 30000,
+    "femalePatients": 41000,
+    "childPatients": 27000,
+    "deaths": 4600,
+    "recoveredPatients": 69000
+  },
+  {
+    "month": "December",
+    "year": 2023,
+    "totalPatients": 73000,
+    "malePatients": 31000,
+    "femalePatients": 42000,
+    "childPatients": 28000,
+    "deaths": 4800,
+    "recoveredPatients": 71000
+  }
+]
