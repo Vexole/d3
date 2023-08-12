@@ -1,36 +1,27 @@
-document.addEventListener('DOMContentLoaded', function () {
-  const csvUrl = 'https://raw.githubusercontent.com/Vexole/ems/main/covid.csv';
-
+function updateScatterPlot() {
   d3.csv(csvUrl).then(function (covidData) {
-    covidData.forEach(function (d) {
-      d.totalPatients = +d.totalPatients;
-      d.malePatients = +d.malePatients;
-      d.femalePatients = +d.femalePatients;
-      d.childrenPatients = +d.childrenPatients;
-      d.deaths = +d.deaths;
-      d.recoveredPatients = +d.recoveredPatients;
-    });
-
-    const margin = { top: 20, right: 30, bottom: 90, left: 90 };
+    getCovidData(covidData);
+    const margin = { top: 60, right: 150, bottom: 100, left: 150 };
     const width = 800 - margin.left - margin.right;
-    const height = 400 - margin.top - margin.bottom;
+    const height = 500 - margin.top - margin.bottom;
 
-    const svg = d3
-      .select('#scatter-plot')
-      .append('svg')
-      .attr('width', width + margin.left + margin.right)
-      .attr('height', height + margin.top + margin.bottom)
-      .append('g')
-      .attr('transform', `translate(${margin.left},${margin.top})`);
+    const svg = setupD3Select(
+      '#scatter-plot',
+      width,
+      height,
+      margin,
+      margin.left,
+      margin.top
+    );
 
     const xScale = d3
       .scaleLinear()
-      .domain([0, d3.max(covidData, (d) => d.malePatients + 5000)])
-      .range([0, width - 100]);
+      .domain([0, d3.max(covidData, (d) => d.totalPatients + 5000)])
+      .range([0, width]);
 
     const yScale = d3
-      .scaleLinear()
-      .domain([0, d3.max(covidData, (d) => d.femalePatients + 5000)])
+      .scalePoint()
+      .domain(covidData.map((d) => `${d.month}, ${d.year}`))
       .range([height, 0]);
 
     svg
@@ -38,26 +29,63 @@ document.addEventListener('DOMContentLoaded', function () {
       .data(covidData)
       .enter()
       .append('circle')
-      .attr('cx', (d) => xScale(d.malePatients))
-      .attr('cy', (d) => yScale(d.femalePatients))
+      .attr('cx', (d) => 0)
+      .attr('cy', (d) => yScale(`${d.month}, ${d.year}`))
       .attr('r', 5)
       .attr('fill', 'steelblue')
       .on('mouseover', handleMouseOver)
-      .on('mouseout', handleMouseOut);
+      .on('mouseout', handleMouseOut)
+      .transition()
+      .duration(800)
+      .delay((d, i) => i * 100)
+      .attr('cx', (d) => xScale(d.totalPatients));
 
     function handleMouseOver(event, d) {
+      d3.select(this).attr('fill', 'purple');
       const tooltip = svg
-        .append('text')
+        .append('g')
         .attr('class', 'tooltip')
-        .attr('x', xScale(d.malePatients))
-        .attr('y', yScale(d.femalePatients) - 10)
+        .attr(
+          'transform',
+          `translate(${xScale(d.totalPatients)},${yScale(
+            `${d.month}, ${d.year}`
+          )})`
+        );
+
+      const tooltipRect = tooltip
+        .append('rect')
+        .attr('x', 10)
+        .attr('y', -20)
+        .attr('width', 150)
+        .attr('height', 40)
+        .attr('fill', 'rgba(255, 255, 255, 0.9)')
+        .attr('rx', 5)
+        .attr('ry', 5);
+
+      tooltip
+        .append('text')
+        .attr('x', 85)
+        .attr('y', 0)
+        .attr('dy', '0.35em')
         .attr('text-anchor', 'middle')
         .style('font-size', '12px')
         .style('font-weight', 'bold')
-        .text(`Male: ${d.malePatients}, Female: ${d.femalePatients}`);
+        .style('fill', 'black')
+        .text(`Total Patients: ${d.totalPatients}`);
+
+      tooltip
+        .append('text')
+        .attr('x', 85)
+        .attr('y', 15)
+        .attr('dy', '0.35em')
+        .attr('text-anchor', 'middle')
+        .style('font-size', '12px')
+        .style('fill', 'black')
+        .text(`Date: ${d.month}, ${d.year}`);
     }
 
     function handleMouseOut(event, d) {
+      d3.select(this).attr('fill', 'steelblue');
       svg.select('.tooltip').remove();
     }
 
@@ -71,17 +99,37 @@ document.addEventListener('DOMContentLoaded', function () {
 
     svg
       .append('text')
-      .attr('x', width / 2)
-      .attr('y', height + margin.top + 30)
+      .attr('transform', 'rotate(-90)')
+      .attr('y', -margin.left)
+      .attr('x', -height / 2)
+      .attr('dy', '1em')
       .style('text-anchor', 'middle')
-      .text('Male Patients');
+      .text('Month and Year');
 
     svg
       .append('text')
-      .attr('x', -(height / 2))
-      .attr('y', -margin.left + 20)
-      .attr('transform', 'rotate(-90)')
+      .attr('x', width / 2)
+      .attr('y', height + margin.top)
       .style('text-anchor', 'middle')
-      .text('Female Patients');
+      .text('Total Patients');
+
+    svg
+      .append('text')
+      .attr('x', width / 2)
+      .attr('y', -margin.top / 2)
+      .style('text-anchor', 'middle')
+      .style('font-size', '16px')
+      .style('font-weight', 'bold')
+      .text('COVID-19 Total Patients Scatter Plot');
+
+    svg
+      .append('text')
+      .attr('x', width / 2)
+      .attr('y', height + margin.top + 20)
+      .style('text-anchor', 'middle')
+      .style('font-style', 'italic')
+      .style('fill', '#666')
+      .style('font-size', '12px')
+      .text('Hover over circles for details');
   });
-});
+}

@@ -1,27 +1,23 @@
-document.addEventListener('DOMContentLoaded', function () {
-  const csvUrl = 'https://raw.githubusercontent.com/Vexole/ems/main/covid.csv';
+function midAngle(d) {
+  return d.startAngle + (d.endAngle - d.startAngle) / 2;
+}
 
+function updateDonutChart() {
   d3.csv(csvUrl).then(function (covidData) {
-    covidData.forEach(function (d) {
-      d.totalPatients = +d.totalPatients;
-      d.malePatients = +d.malePatients;
-      d.femalePatients = +d.femalePatients;
-      d.childrenPatients = +d.childrenPatients;
-      d.deaths = +d.deaths;
-      d.recoveredPatients = +d.recoveredPatients;
-    });
+    getCovidData(covidData);
 
-    const margin = { top: 20, right: 30, bottom: 60, left: 60 };
-    const width = 400 - margin.left - margin.right;
+    const margin = { top: 20, right: 30, bottom: 100, left: 60 };
+    const width = 600 - margin.left - margin.right;
     const height = 400 - margin.top - margin.bottom;
 
-    const svg = d3
-      .select('#donut-chart')
-      .append('svg')
-      .attr('width', width + margin.left + margin.right)
-      .attr('height', height + margin.top + margin.bottom)
-      .append('g')
-      .attr('transform', `translate(${width / 2},${height / 2})`);
+    const svg = setupD3Select(
+      '#donut-chart',
+      width,
+      height,
+      margin,
+      width / 2,
+      height / 2
+    );
 
     const radius = Math.min(width, height) / 2;
 
@@ -38,13 +34,23 @@ document.addEventListener('DOMContentLoaded', function () {
     const data = [
       { name: 'Male', value: d3.sum(covidData, (d) => d.malePatients) },
       { name: 'Female', value: d3.sum(covidData, (d) => d.femalePatients) },
-      { name: 'Children', value: d3.sum(covidData, (d) => d.childPatients) },
+      { name: 'Children', value: d3.sum(covidData, (d) => d.childrenPatients) },
     ];
 
     const path = d3
       .arc()
       .outerRadius(radius - 10)
       .innerRadius(radius - 70);
+
+    const arcLabel = d3
+      .arc()
+      .innerRadius(radius * 0.7)
+      .outerRadius(radius * 0.7);
+
+    const outerArc = d3
+      .arc()
+      .innerRadius(radius * 0.9)
+      .outerRadius(radius * 0.9);
 
     const arc = svg
       .selectAll('.arc')
@@ -58,7 +64,43 @@ document.addEventListener('DOMContentLoaded', function () {
       .attr('d', path)
       .attr('fill', (d) => color(d.data.name))
       .on('mouseover', handleMouseOver)
-      .on('mouseout', handleMouseOut);
+      .on('mouseout', handleMouseOut)
+      .transition()
+      .duration(800)
+      .attrTween('d', function (d) {
+        const interpolate = d3.interpolate({ startAngle: 0, endAngle: 0 }, d);
+        return function (t) {
+          return path(interpolate(t));
+        };
+      });
+
+    arc
+      .append('polyline')
+      .attr('class', 'polyline')
+      .attr('stroke', (d) => color(d.data.name))
+      .attr('stroke-width', '1px')
+      .attr('fill', 'none')
+      .style('opacity', 0)
+      .transition()
+      .duration(800)
+      .style('opacity', 1)
+      .attr('points', function (d) {
+        const pos = outerArc.centroid(d);
+        pos[0] = radius * (midAngle(d) < Math.PI ? 1 : -1);
+        return [path.centroid(d), arcLabel.centroid(d), pos];
+      });
+
+    arc
+      .append('text')
+      .attr('class', 'annotation')
+      .attr('dy', '.35em')
+      .attr('transform', function (d) {
+        const pos = outerArc.centroid(d);
+        pos[0] = radius * 0.95 * (midAngle(d) < Math.PI ? 1 : -1);
+        return `translate(${pos})`;
+      })
+      .style('text-anchor', (d) => (midAngle(d) < Math.PI ? 'start' : 'end'))
+      .text((d) => `${d.data.name}: ${d.data.value}`);
 
     function handleMouseOver(event, d) {
       const percent = ((d.endAngle - d.startAngle) / (2 * Math.PI)) * 100;
@@ -97,5 +139,23 @@ document.addEventListener('DOMContentLoaded', function () {
       .attr('y', 9)
       .attr('dy', '.35em')
       .text((d) => d.name);
+
+    svg
+      .append('text')
+      .attr('x', 0)
+      .attr('y', height / 2 + margin.bottom - 10)
+      .style('text-anchor', 'middle')
+      .style('font-size', '14px')
+      .text('COVID-19 Gender Distribution');
+
+    svg
+      .append('text')
+      .attr('x', 0)
+      .attr('y', height / 2 + margin.bottom + 10)
+      .style('text-anchor', 'middle')
+      .style('font-style', 'italic')
+      .style('fill', '#666')
+      .style('font-size', '12px')
+      .text('Hover over segments for details');
   });
-});
+}

@@ -2,47 +2,30 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>COVID-19 Visualizations</title>
+    <title>COVID-19 Details</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <nav>
+      <h2>Covid Data Visualization</h2>
       <ul>
         <li id="barChart"><a href="#bar-chart">Bar Chart</a></li>
         <li id="donutChart"><a href="#donut-chart">Donut Chart</a></li>
-        <li id=""><a href="#pie-chart">Pie Chart</a></li>
         <li id="scatterPlot"><a href="#scatter-plot">Scatter Plot</a></li>
         <li id="groupedBarChart">
           <a href="#grouped-bar-chart">Grouped Bar Chart</a>
         </li>
-        <li id="bubbleChart"><a href="#bubble-chart">Bubble Chart</a></li>
-        <li><a href="#area-chart">Area Chart</a></li>
       </ul>
     </nav>
-    <div class="chart-container" id="chart"></div>
+    <div id="bar-chart" class="chart-container active"></div>
+    <div id="donut-chart" class="chart-container"></div>
+    <div id="scatter-plot" class="chart-container"></div>
+    <div id="grouped-bar-chart" class="chart-container"></div>
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <script src="script.js"></script>
-  </body>
-</html>
-<!-- <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>COVID-19 Bar Chart</title>
-    <link rel="stylesheet" href="styles.css" />
-  </head>
-  <body>
-    <div id="bar-chart"></div>
-    <div id="donut-chart"></div>
-    <div id="scatter-plot"></div>
-    <div id="grouped-bar-chart"></div>
-    <div id="bubble-chart"></div>
-    <script src="https://d3js.org/d3.v7.min.js"></script>
     <script src="bar-chart.js"></script>
     <script src="donut-chart.js"></script>
     <script src="scatter-plot.js"></script>
     <script src="grouped-bar-chart.js"></script>
-    <script src="bubble-chart.js"></script>
   </body>
-</html> -->
+</html>
