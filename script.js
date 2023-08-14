@@ -1,4 +1,4 @@
-const csvUrl = 'https://raw.githubusercontent.com/Vexole/ems/main/covid.csv';
+const csvUrl = "https://raw.githubusercontent.com/Vexole/ems/main/covid.csv";
 
 function getCovidData(covidData) {
   covidData.forEach(function (d) {
@@ -14,46 +14,54 @@ function getCovidData(covidData) {
 function setupD3Select(id, width, height, margin, translateX, translateY) {
   const svg = d3
     .select(id)
-    .append('svg')
-    .attr('width', width + margin.left + margin.right)
-    .attr('height', height + margin.top + margin.bottom)
-    .append('g')
-    .attr('transform', `translate(${translateX},${translateY})`);
+    .append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+    .append("g")
+    .attr("transform", `translate(${translateX},${translateY})`);
   return svg;
 }
 
-document.addEventListener('DOMContentLoaded', function () {
-  const chartContainers = document.querySelectorAll('.chart-container');
-  const navButtons = document.querySelectorAll('nav ul li');
-  let currentChartType = 'bar-chart';
+document.addEventListener("DOMContentLoaded", function () {
+  const chartContainers = document.querySelectorAll(".chart-container");
+  const navButtons = document.querySelectorAll("nav ul li");
+  let currentChartType = "bar-chart";
 
   function removeChart() {
     chartContainers.forEach((container) => {
-      container.innerHTML = '';
+      container.innerHTML = "";
     });
   }
 
   function updateChart() {
     removeChart();
     chartContainers.forEach((container) => {
-      container.classList.remove('active');
+      container.classList.remove("active");
     });
 
-    document.getElementById(currentChartType).classList.add('active');
-    if (currentChartType === 'bar-chart') {
+    document.getElementById(currentChartType).classList.add("active");
+    if (currentChartType === "bar-chart") {
       updateBarChart();
-    } else if (currentChartType === 'donut-chart') {
+    } else if (currentChartType === "donut-chart") {
       updateDonutChart();
-    } else if (currentChartType === 'scatter-plot') {
+    } else if (currentChartType === "scatter-plot") {
       updateScatterPlot();
-    } else if (currentChartType === 'grouped-bar-chart') {
+    } else if (currentChartType === "grouped-bar-chart") {
       updateGroupedBarChart();
+    } else if (currentChartType === "line-chart") {
+      updateLineChart();
+    } else if (currentChartType === "pie-chart") {
+      updatePieChart();
+    } else if (currentChartType === "streamgraph-chart") {
+      updateStreamgraph();
+    } else if (currentChartType === "treemap-chart") {
+      updateTreemap();
     }
   }
 
   navButtons.forEach((button) => {
-    button.addEventListener('click', function () {
-      const chartId = button.id.replace(/([A-Z])/g, '-$1').toLowerCase();
+    button.addEventListener("click", function () {
+      const chartId = button.id.replace(/([A-Z])/g, "-$1").toLowerCase();
       currentChartType = chartId;
       updateChart();
     });

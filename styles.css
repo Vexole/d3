@@ -30,6 +30,16 @@ nav a {
   color: white;
 }
 
+h2 {
+  padding-left: 12px;
+}
+
+.group-info {
+  text-align: center;
+  font-weight: bold;
+  color: steelblue;
+}
+
 .chart-container {
   margin: 20px auto;
   width: 80%;
@@ -48,6 +58,7 @@ nav a {
 .chart-container {
   display: none;
   text-align: center;
+  position: relative;
 }
 
 .chart-container.active {
